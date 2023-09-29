@@ -1,11 +1,21 @@
 package main
 
 import (
-	"log"
-	"encoding/json"
-	"github.com/golang-jwt/jwt"
-	"net/http"
-	"time"
+	"jwt-go/controllers"
+	"jwt-go/initializers"
+
+	"github.com/gin-gonic/gin"
 )
 
-func main() {}
+func init() {
+	initializers.LoadEnvVariables()
+	initializers.ConnectToDb()
+	initializers.SyncDatabase()
+}
+
+func main() {
+	r := gin.Default()
+	r.POST("/signup", controllers.Signup)
+
+	r.Run()
+}
