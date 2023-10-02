@@ -3,6 +3,7 @@ package main
 import (
 	"jwt-go/controllers"
 	"jwt-go/initializers"
+	"jwt-go/middleware"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,7 +18,7 @@ func main() {
 	r := gin.Default()
 	r.POST("/signup", controllers.Signup)
 	r.POST("/login", controllers.Login)
-	r.POST("/validate", controllers.Validate)
+	r.POST("/validate", middleware.RequireAuth, controllers.Validate)
 
 	r.Run()
 }
